@@ -1,0 +1,5 @@
+services:
+  coreai-mcu-document-processor:
+    command: npm run test:debug
+    ports:
+      - "9229:9229"
