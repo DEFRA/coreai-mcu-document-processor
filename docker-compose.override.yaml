@@ -9,19 +9,28 @@ services:
     image: coreai-mcu-document-processor-development
     container_name: coreai-mcu-document-processor-development
     ports:
-      - "3000:3000"
-      - "9229:9229"
+      - "3007:3000"
+      - "9237:9229"
     volumes:
       - ./app:/home/node/app
       - ./test:/home/node/test
       - ./scripts:/home/node/scripts
       - ./package.json:/home/node/package.json
-  
-  coreai-mcu-document-processor-postgres:
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+    environment:
+      AZURE_STORAGE_CONNECTION_STRING: DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://coreai-mcu-document-processor-azurite:10000/devstoreaccount1;TableEndpoint=http://coreai-mcu-document-processor-azurite:10002/devstoreaccount1;
+      DOCUMENTS_API_BASE_URL: http://host.docker.internal:3001
+      MESSAGE_QUEUE_HOST: ${MESSAGE_QUEUE_HOST}
+      MESSAGE_QUEUE_USER: ${MESSAGE_QUEUE_USER}
+      MESSAGE_QUEUE_PASSWORD: ${MESSAGE_QUEUE_PASSWORD}
+      GENERATION_REQUEST_TOPIC: ${GENERATION_REQUEST_TOPIC:-coreai-mcu-generation-request}${MESSAGE_QUEUE_SUFFIX}
+    depends_on:
+      - coreai-mcu-document-processor-azurite
 
+  coreai-mcu-document-processor-azurite:
+    volumes:
+      - azurite_data:/data
+    ports:
+      - "10010:10000"
+      - "10012:10002"
 volumes:
-  postgres_data:
+  azurite_data:

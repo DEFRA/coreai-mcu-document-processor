@@ -20,7 +20,15 @@
   "license": "OGL-UK-3.0",
   "dependencies": {
     "@hapi/hapi": "21.3.2",
-    "applicationinsights": "2.8.0"
+    "@azure/identity": "2.0.5",
+    "@azure/storage-blob": "12.13.0",
+    "@azure/data-tables": "^13.2.2",
+    "@joi/date": "2.1.0",
+    "applicationinsights": "2.8.0",
+    "ffc-messaging": "2.6.5",
+    "joi": "17.6.0",
+    "log-timestamp": "0.3.0",
+    "uuid": "8.3.2"
   },
   "devDependencies": {
     "jest": "29.7.0",
