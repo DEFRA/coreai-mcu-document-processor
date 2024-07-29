@@ -34,5 +34,5 @@ metadata:
 spec:
   type: backend
   lifecycle: alpha
-  owner: "group:default/mcu-ai-document-processor"
+  owner: "group:default/crai-mcu"
   
